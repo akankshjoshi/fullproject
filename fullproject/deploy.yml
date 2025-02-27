@@ -1,0 +1,16 @@
+- hosts: localhost
+  become: true
+  tasks:
+    - name: Pull Docker Image
+      command: docker pull ajop232/scientific
+
+    - name: Stop Existing Container (if running)
+      command: docker stop calculator-app
+      ignore_errors: yes
+
+    - name: Remove Existing Container (if exists)
+      command: docker rm calculator-app
+      ignore_errors: yes
+
+    - name: Run the Container
+      command: docker run -d --name calculator-app ajop232/scientific
